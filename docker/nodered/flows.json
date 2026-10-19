@@ -1,0 +1,563 @@
+[
+ {
+  "id": "t1",
+  "type": "tab",
+  "label": "Dashboard ETL",
+  "disabled": false,
+  "info": ""
+ },
+ {
+  "id": "tab1",
+  "type": "ui_tab",
+  "name": "Produtos",
+  "icon": "dashboard",
+  "disabled": false,
+  "hidden": false
+ },
+ {
+  "id": "g1",
+  "type": "ui_group",
+  "name": "Resultados do ETL",
+  "tab": "tab1",
+  "order": 1,
+  "disp": true,
+  "width": "12",
+  "collapse": false
+ },
+ {
+  "id": "inj",
+  "type": "inject",
+  "z": "t1",
+  "name": "refresh 30s",
+  "props": [
+   {
+    "p": "payload"
+   }
+  ],
+  "repeat": "30",
+  "crontab": "",
+  "once": true,
+  "onceDelay": "2",
+  "topic": "",
+  "payload": "",
+  "payloadType": "date",
+  "x": 120,
+  "y": 160,
+  "wires": [
+   [
+    "fm",
+    "fl",
+    "fr"
+   ]
+  ]
+ },
+ {
+  "id": "fm",
+  "type": "file in",
+  "z": "t1",
+  "name": "/output/agg_marca.csv",
+  "filename": "/output/agg_marca.csv",
+  "filenameType": "str",
+  "format": "utf8",
+  "chunk": false,
+  "sendError": false,
+  "encoding": "none",
+  "allProps": false,
+  "x": 330,
+  "y": 100,
+  "wires": [
+   [
+    "cm"
+   ]
+  ]
+ },
+ {
+  "id": "cm",
+  "type": "csv",
+  "z": "t1",
+  "name": "",
+  "sep": ";",
+  "hdrin": true,
+  "hdrout": "none",
+  "multi": "mult",
+  "ret": "\\r\\n",
+  "temp": "",
+  "skip": "0",
+  "strings": true,
+  "include_empty_strings": "",
+  "include_null_values": "",
+  "x": 540,
+  "y": 100,
+  "wires": [
+   [
+    "f1",
+    "fp_m"
+   ]
+  ]
+ },
+ {
+  "id": "f1",
+  "type": "function",
+  "z": "t1",
+  "name": "Marcas",
+  "func": "const clean=r=>{const o={};for(const k in r)o[k.trim()]=r[k];return o};const num=v=>{const n=Number(String(v).replace(',','.'));return isNaN(n)?0:n};\nconst rows=(msg.payload||[]).map(clean);\nconst a=[{payload:[]}],b=[{payload:[]}];\nrows.forEach(r=>{a.push({topic:r.marca_final,payload:num(r.n_modelos)});b.push({topic:r.marca_final,payload:num(r.preco_medio_eur)});});\nreturn [a,b];",
+  "outputs": 2,
+  "x": 700,
+  "y": 100,
+  "wires": [
+   [
+    "c1"
+   ],
+   [
+    "c2"
+   ]
+  ]
+ },
+ {
+  "id": "c1",
+  "type": "ui_chart",
+  "z": "t1",
+  "name": "Nº de modelos por marca",
+  "group": "g1",
+  "order": 2,
+  "width": "6",
+  "height": "5",
+  "label": "Nº de modelos por marca",
+  "chartType": "bar",
+  "legend": "false",
+  "xformat": "HH:mm:ss",
+  "interpolate": "linear",
+  "nodata": "sem dados (corre o Job)",
+  "dot": false,
+  "ymin": "",
+  "ymax": "",
+  "removeOlder": 1,
+  "removeOlderPoints": "",
+  "removeOlderUnit": "3600",
+  "cutout": 0,
+  "useOneColor": false,
+  "useUTC": false,
+  "colors": [
+   "#1f77b4",
+   "#aec7e8",
+   "#ff7f0e",
+   "#2ca02c",
+   "#98df8a",
+   "#d62728",
+   "#ff9896",
+   "#9467bd",
+   "#c5b0d5"
+  ],
+  "outputs": 1,
+  "useDifferentColor": false,
+  "className": "",
+  "x": 900,
+  "y": 60,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "c2",
+  "type": "ui_chart",
+  "z": "t1",
+  "name": "Preço médio (EUR) por marca",
+  "group": "g1",
+  "order": 3,
+  "width": "6",
+  "height": "5",
+  "label": "Preço médio (EUR) por marca",
+  "chartType": "bar",
+  "legend": "false",
+  "xformat": "HH:mm:ss",
+  "interpolate": "linear",
+  "nodata": "sem dados (corre o Job)",
+  "dot": false,
+  "ymin": "",
+  "ymax": "",
+  "removeOlder": 1,
+  "removeOlderPoints": "",
+  "removeOlderUnit": "3600",
+  "cutout": 0,
+  "useOneColor": false,
+  "useUTC": false,
+  "colors": [
+   "#1f77b4",
+   "#aec7e8",
+   "#ff7f0e",
+   "#2ca02c",
+   "#98df8a",
+   "#d62728",
+   "#ff9896",
+   "#9467bd",
+   "#c5b0d5"
+  ],
+  "outputs": 1,
+  "useDifferentColor": false,
+  "className": "",
+  "x": 900,
+  "y": 140,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "fl",
+  "type": "file in",
+  "z": "t1",
+  "name": "/output/agg_loja.csv",
+  "filename": "/output/agg_loja.csv",
+  "filenameType": "str",
+  "format": "utf8",
+  "chunk": false,
+  "sendError": false,
+  "encoding": "none",
+  "allProps": false,
+  "x": 330,
+  "y": 260,
+  "wires": [
+   [
+    "cl"
+   ]
+  ]
+ },
+ {
+  "id": "cl",
+  "type": "csv",
+  "z": "t1",
+  "name": "",
+  "sep": ";",
+  "hdrin": true,
+  "hdrout": "none",
+  "multi": "mult",
+  "ret": "\\r\\n",
+  "temp": "",
+  "skip": "0",
+  "strings": true,
+  "include_empty_strings": "",
+  "include_null_values": "",
+  "x": 540,
+  "y": 260,
+  "wires": [
+   [
+    "f2",
+    "fp_l"
+   ]
+  ]
+ },
+ {
+  "id": "f2",
+  "type": "function",
+  "z": "t1",
+  "name": "Lojas",
+  "func": "const clean=r=>{const o={};for(const k in r)o[k.trim()]=r[k];return o};const num=v=>{const n=Number(String(v).replace(',','.'));return isNaN(n)?0:n};\nconst rows=(msg.payload||[]).map(clean);\nmsg.payload=rows.map(r=>({loja:r.loja,n_modelos:r.n_modelos,unidades_total:r.unidades_total,preco:(r.preco_medio_eur===''||r.preco_medio_eur===undefined)?'—':num(r.preco_medio_eur).toFixed(2)}));\nreturn msg;",
+  "outputs": 1,
+  "x": 700,
+  "y": 260,
+  "wires": [
+   [
+    "tl"
+   ]
+  ]
+ },
+ {
+  "id": "tl",
+  "type": "ui_template",
+  "z": "t1",
+  "group": "g1",
+  "name": "Resumo por loja",
+  "order": 4,
+  "width": "12",
+  "height": "3",
+  "format": "<table style=\"width:100%;text-align:left\"><tr><th>Loja</th><th>Modelos</th><th>Unidades</th><th>Preço médio (EUR)</th></tr><tr ng-repeat=\"r in msg.payload\"><td>{{r.loja}}</td><td>{{r.n_modelos}}</td><td>{{r.unidades_total}}</td><td>{{r.preco}}</td></tr></table>",
+  "storeOutMessages": true,
+  "fwdInMessages": true,
+  "resendOnRefresh": true,
+  "templateScope": "local",
+  "className": "",
+  "x": 900,
+  "y": 260,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "fr",
+  "type": "file in",
+  "z": "t1",
+  "name": "/output/resumo_execucao.csv",
+  "filename": "/output/resumo_execucao.csv",
+  "filenameType": "str",
+  "format": "utf8",
+  "chunk": false,
+  "sendError": false,
+  "encoding": "none",
+  "allProps": false,
+  "x": 330,
+  "y": 340,
+  "wires": [
+   [
+    "cr"
+   ]
+  ]
+ },
+ {
+  "id": "cr",
+  "type": "csv",
+  "z": "t1",
+  "name": "",
+  "sep": ";",
+  "hdrin": true,
+  "hdrout": "none",
+  "multi": "mult",
+  "ret": "\\r\\n",
+  "temp": "",
+  "skip": "0",
+  "strings": true,
+  "include_empty_strings": "",
+  "include_null_values": "",
+  "x": 540,
+  "y": 340,
+  "wires": [
+   [
+    "f3",
+    "fp_r"
+   ]
+  ]
+ },
+ {
+  "id": "f3",
+  "type": "function",
+  "z": "t1",
+  "name": "Resumo",
+  "func": "const clean=r=>{const o={};for(const k in r)o[k.trim()]=r[k];return o};\nconst r=clean((msg.payload||[])[0]||{});\nconst t=Number(String(r.taxa_usd_eur).replace(',','.'));\nmsg.payload={taxa:isNaN(t)?'n/d':t.toFixed(5),total:r.total_produtos,com:r.com_especificacoes,sem:r.sem_especificacoes,atualizado:r.atualizado_em};\nreturn msg;",
+  "outputs": 1,
+  "x": 700,
+  "y": 340,
+  "wires": [
+   [
+    "tr"
+   ]
+  ]
+ },
+ {
+  "id": "tr",
+  "type": "ui_template",
+  "z": "t1",
+  "group": "g1",
+  "name": "Resumo da execução",
+  "order": 1,
+  "width": "12",
+  "height": "2",
+  "format": "<div style=\"display:flex;gap:32px;flex-wrap:wrap\"><div><b>Taxa USD→EUR usada</b><br><span style=\"font-size:28px\">{{msg.payload.taxa}}</span></div><div><b>Produtos reconciliados</b><br><span style=\"font-size:28px\">{{msg.payload.total}}</span></div><div><b>Com especificações</b><br><span style=\"font-size:28px\">{{msg.payload.com}}</span></div><div><b>Sem especificações</b><br><span style=\"font-size:28px\">{{msg.payload.sem}}</span></div></div><small>Atualizado: {{msg.payload.atualizado}}</small>",
+  "storeOutMessages": true,
+  "fwdInMessages": true,
+  "resendOnRefresh": true,
+  "templateScope": "local",
+  "className": "",
+  "x": 920,
+  "y": 340,
+  "wires": [
+   []
+  ]
+ },
+ {
+  "id": "broker1",
+  "type": "mqtt-broker",
+  "name": "Mosquitto",
+  "broker": "mosquitto",
+  "port": "1883",
+  "clientid": "nodered-etl",
+  "autoConnect": true,
+  "usetls": false,
+  "protocolVersion": "4",
+  "keepalive": "60",
+  "cleansession": true,
+  "autoUnsubscribe": true,
+  "birthTopic": "etl/nodered/status",
+  "birthQos": "1",
+  "birthRetain": "true",
+  "birthPayload": "online",
+  "birthMsg": {},
+  "closeTopic": "",
+  "closeQos": "0",
+  "closeRetain": "false",
+  "closePayload": "",
+  "closeMsg": {},
+  "willTopic": "etl/nodered/status",
+  "willQos": "1",
+  "willRetain": "true",
+  "willPayload": "offline",
+  "willMsg": {},
+  "userProps": "",
+  "sessionExpiry": ""
+ },
+ {
+  "id": "fp_m",
+  "type": "function",
+  "z": "t1",
+  "name": "MQTT marcas",
+  "func": "const clean=r=>{const o={};for(const k in r)o[k.trim()]=r[k];return o};\nmsg.payload=(msg.payload||[]).map(clean);msg.topic='etl/marcas';return msg;",
+  "outputs": 1,
+  "x": 740,
+  "y": 420,
+  "wires": [
+   [
+    "mo_m"
+   ]
+  ]
+ },
+ {
+  "id": "mo_m",
+  "type": "mqtt out",
+  "z": "t1",
+  "name": "etl/marcas",
+  "topic": "etl/marcas",
+  "qos": "1",
+  "retain": "true",
+  "respTopic": "",
+  "contentType": "",
+  "userProps": "",
+  "correl": "",
+  "expiry": "",
+  "broker": "broker1",
+  "x": 970,
+  "y": 420,
+  "wires": []
+ },
+ {
+  "id": "fp_l",
+  "type": "function",
+  "z": "t1",
+  "name": "MQTT lojas",
+  "func": "const clean=r=>{const o={};for(const k in r)o[k.trim()]=r[k];return o};\nmsg.payload=(msg.payload||[]).map(clean);msg.topic='etl/lojas';return msg;",
+  "outputs": 1,
+  "x": 740,
+  "y": 480,
+  "wires": [
+   [
+    "mo_l"
+   ]
+  ]
+ },
+ {
+  "id": "mo_l",
+  "type": "mqtt out",
+  "z": "t1",
+  "name": "etl/lojas",
+  "topic": "etl/lojas",
+  "qos": "1",
+  "retain": "true",
+  "respTopic": "",
+  "contentType": "",
+  "userProps": "",
+  "correl": "",
+  "expiry": "",
+  "broker": "broker1",
+  "x": 970,
+  "y": 480,
+  "wires": []
+ },
+ {
+  "id": "fp_r",
+  "type": "function",
+  "z": "t1",
+  "name": "MQTT resumo",
+  "func": "const clean=r=>{const o={};for(const k in r)o[k.trim()]=r[k];return o};\nmsg.payload=clean((msg.payload||[])[0]||{});msg.topic='etl/resumo';return msg;",
+  "outputs": 1,
+  "x": 740,
+  "y": 540,
+  "wires": [
+   [
+    "mo_r"
+   ]
+  ]
+ },
+ {
+  "id": "mo_r",
+  "type": "mqtt out",
+  "z": "t1",
+  "name": "etl/resumo",
+  "topic": "etl/resumo",
+  "qos": "1",
+  "retain": "true",
+  "respTopic": "",
+  "contentType": "",
+  "userProps": "",
+  "correl": "",
+  "expiry": "",
+  "broker": "broker1",
+  "x": 970,
+  "y": 540,
+  "wires": []
+ },
+ {
+  "id": "mi",
+  "type": "mqtt in",
+  "z": "t1",
+  "name": "",
+  "topic": "etl/#",
+  "qos": "1",
+  "datatype": "auto-detect",
+  "broker": "broker1",
+  "nl": false,
+  "rap": true,
+  "rh": 0,
+  "inputs": 0,
+  "x": 120,
+  "y": 640,
+  "wires": [
+   [
+    "fs"
+   ]
+  ]
+ },
+ {
+  "id": "fs",
+  "type": "function",
+  "z": "t1",
+  "name": "Formatar MQTT",
+  "func": "const p=typeof msg.payload==='object'?JSON.stringify(msg.payload):String(msg.payload);\nmsg.payload=new Date().toLocaleTimeString('pt-PT')+'  '+msg.topic+'  →  '+p.slice(0,120);\nreturn msg;",
+  "outputs": 1,
+  "x": 330,
+  "y": 640,
+  "wires": [
+   [
+    "ut",
+    "dbg"
+   ]
+  ]
+ },
+ {
+  "id": "ut",
+  "type": "ui_text",
+  "z": "t1",
+  "group": "g1",
+  "order": 5,
+  "width": "12",
+  "height": "1",
+  "name": "Último MQTT",
+  "label": "Último evento MQTT",
+  "format": "{{msg.payload}}",
+  "layout": "row-spacer",
+  "className": "",
+  "x": 560,
+  "y": 640,
+  "wires": []
+ },
+ {
+  "id": "dbg",
+  "type": "debug",
+  "z": "t1",
+  "name": "MQTT debug",
+  "active": true,
+  "tosidebar": true,
+  "console": false,
+  "tostatus": false,
+  "complete": "payload",
+  "targetType": "msg",
+  "x": 560,
+  "y": 700,
+  "wires": []
+ }
+]

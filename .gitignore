@@ -1,0 +1,8 @@
+.env
+# Ignora todo o conteúdo das pastas
+output/*
+logs/*
+
+# Mantém a pasta no Git
+!output/.gitkeep
+!logs/.gitkeep

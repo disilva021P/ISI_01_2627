@@ -1,0 +1,135 @@
+[
+  {
+    "marca": "Allview",
+    "modelo": "P6 Lite",
+    "ram_gb": 1,
+    "armazenamento_gb": 8,
+    "bateria_mah": 2500
+  },
+  {
+    "marca": "LG",
+    "modelo": "W31+",
+    "ram_gb": 3,
+    "armazenamento_gb": 32,
+    "bateria_mah": 4000
+  },
+  {
+    "marca": "Honor",
+    "modelo": "V6",
+    "ram_gb": 8,
+    "armazenamento_gb": 128,
+    "bateria_mah": 4300
+  },
+  {
+    "marca": "Nokia",
+    "modelo": "4.2",
+    "ram_gb": 3,
+    "armazenamento_gb": 32,
+    "bateria_mah": 3000
+  },
+  {
+    "marca": "Sony",
+    "modelo": "Xperia E1 Dual",
+    "ram_gb": 0.5,
+    "armazenamento_gb": 4,
+    "bateria_mah": 1700
+  },
+  {
+    "marca": "Asus",
+    "modelo": "ROG Phone 3 Strix",
+    "ram_gb": 8,
+    "armazenamento_gb": 128,
+    "bateria_mah": 6000
+  },
+  {
+    "marca": "HTC",
+    "modelo": "Desire XC",
+    "ram_gb": 1,
+    "armazenamento_gb": 4,
+    "bateria_mah": 1800
+  },
+  {
+    "marca": "Realme",
+    "modelo": "U1",
+    "ram_gb": 3,
+    "armazenamento_gb": 32,
+    "bateria_mah": 3500
+  },
+  {
+    "marca": "BLU",
+    "modelo": "Life X8",
+    "ram_gb": 2,
+    "armazenamento_gb": 16,
+    "bateria_mah": 5000
+  },
+  {
+    "marca": "Google",
+    "modelo": "Pixel XL",
+    "ram_gb": 4,
+    "armazenamento_gb": 32,
+    "bateria_mah": 3450
+  },
+  {
+    "marca": "OnePlus",
+    "modelo": "8 5G UW",
+    "ram_gb": 8,
+    "armazenamento_gb": 128,
+    "bateria_mah": 4300
+  },
+  {
+    "marca": "Huawei",
+    "modelo": "nova 5",
+    "ram_gb": 6,
+    "armazenamento_gb": 128,
+    "bateria_mah": 3500
+  },
+  {
+    "marca": "Honor",
+    "modelo": "20",
+    "ram_gb": 6,
+    "armazenamento_gb": 128,
+    "bateria_mah": 3750
+  },
+  {
+    "marca": "vivo",
+    "modelo": "X50",
+    "ram_gb": 8,
+    "armazenamento_gb": 128,
+    "bateria_mah": 4200
+  },
+  {
+    "marca": "Nokia",
+    "modelo": "C1",
+    "ram_gb": 1,
+    "armazenamento_gb": 16,
+    "bateria_mah": 2500
+  },
+  {
+    "marca": "Tecno",
+    "modelo": "Camon 15",
+    "ram_gb": 3,
+    "armazenamento_gb": 64,
+    "bateria_mah": 5000
+  },
+  {
+    "marca": "Oppo",
+    "modelo": "F17 Pro",
+    "ram_gb": 8,
+    "armazenamento_gb": 128,
+    "bateria_mah": 4015
+  },
+  {
+    "marca": "Nokia",
+    "modelo": "4.2",
+    "ram_gb": 3,
+    "armazenamento_gb": 32,
+    "bateria_mah": 3000
+  },
+  {
+    "marca": "Lava",
+    "modelo": "3G 412",
+    "ram_gb": 1,
+    "armazenamento_gb": 4,
+    "bateria_mah": null
+  }
+]

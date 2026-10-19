@@ -1,0 +1,60 @@
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: bd_lojab
+    ports: ["3307:3306"]
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./docker/db-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      retries: 20
+
+  api:
+    build: ./api
+    ports: ["8000:8000"]
+
+  mailpit:            # servidor SMTP de teste; ver emails em http://localhost:8025
+    image: axllent/mailpit
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: "1"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+    ports: ["8025:8025", "1025:1025"]
+
+  mosquitto:          # broker MQTT (porta 1883)
+    image: eclipse-mosquitto:2
+    ports: ["1883:1883"]
+    volumes:
+      - ./docker/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mqttdata:/mosquitto/data
+
+  nodered:            # dashboard em http://localhost:1880/ui
+    build: ./docker/nodered
+    ports: ["1880:1880"]
+    depends_on: [mosquitto]
+    volumes:
+      - ./output:/output:ro
+
+  kettle:             # corre com: docker compose run --rm kettle
+    build: ./docker/kettle
+    profiles: ["job"]
+    depends_on:
+      db: { condition: service_healthy }
+      api: { condition: service_started }
+    volumes:
+      - .:/project
+    environment:
+      SMTP_SERVER: mailpit
+      SMTP_PORT: "1025"
+      EMAIL_USER: pipeline@teste.local
+      EMAIL_ORIGEM: pipeline@teste.local
+      EMAIL_DESTINO: ${EMAIL_DESTINO:-aluno@teste.local}
+      EMAIL_PASSWORD: x
+
+volumes:
+  dbdata:
+  mqttdata:

@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<produtos>
+  <produto>
+    <codigoProduto>LB-001</codigoProduto>
+    <nomeMarca>Samsung</nomeMarca>
+    <dispositivo>Samsung E2600</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2011</anoLancamento>
+    <unidades>9</unidades>
+    <precoUnitario>801.44</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-002</codigoProduto>
+    <nomeMarca>Huawei</nomeMarca>
+    <dispositivo>Huawei G6310</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2012</anoLancamento>
+    <unidades>7</unidades>
+    <precoUnitario>1065.8</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-003</codigoProduto>
+    <nomeMarca>Allview</nomeMarca>
+    <dispositivo>Allview E4</dispositivo>
+    <sistemaOperativo>Android 5.1</sistemaOperativo>
+    <anoLancamento>2015</anoLancamento>
+    <unidades>6</unidades>
+    <precoUnitario>1487.02</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-004</codigoProduto>
+    <nomeMarca>Gionee</nomeMarca>
+    <dispositivo>Gionee F103 Pro</dispositivo>
+    <sistemaOperativo>Android 6.0, Amigo 3.2</sistemaOperativo>
+    <anoLancamento>2016</anoLancamento>
+    <unidades>9</unidades>
+    <precoUnitario>330.98</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-005</codigoProduto>
+    <nomeMarca>Samsung</nomeMarca>
+    <dispositivo>Samsung M930 Transform Ultra</dispositivo>
+    <sistemaOperativo>Android 2.3</sistemaOperativo>
+    <anoLancamento>2011</anoLancamento>
+    <unidades>20</unidades>
+    <precoUnitario>1996.14</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-006</codigoProduto>
+    <nomeMarca>Sewon</nomeMarca>
+    <dispositivo>Sewon SGD-1050</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2004</anoLancamento>
+    <unidades>18</unidades>
+    <precoUnitario>850.8</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Descontinuado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-007</codigoProduto>
+    <nomeMarca>BenQ</nomeMarca>
+    <dispositivo>BenQ M7</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>0</anoLancamento>
+    <unidades>4</unidades>
+    <precoUnitario>927.52</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-008</codigoProduto>
+    <nomeMarca>Plum</nomeMarca>
+    <dispositivo>Plum Coach Plus II</dispositivo>
+    <sistemaOperativo>Android 4.4.2</sistemaOperativo>
+    <anoLancamento>2014</anoLancamento>
+    <unidades>14</unidades>
+    <precoUnitario>110.97</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-009</codigoProduto>
+    <nomeMarca>Philips</nomeMarca>
+    <dispositivo>Philips S309</dispositivo>
+    <sistemaOperativo>Android 5.1</sistemaOperativo>
+    <anoLancamento>2015</anoLancamento>
+    <unidades>9</unidades>
+    <precoUnitario>1756.17</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-010</codigoProduto>
+    <nomeMarca>LG</nomeMarca>
+    <dispositivo>LG Enact VS890</dispositivo>
+    <sistemaOperativo>Android 4.1.2</sistemaOperativo>
+    <anoLancamento>2013</anoLancamento>
+    <unidades>17</unidades>
+    <precoUnitario>1898.0</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-011</codigoProduto>
+    <nomeMarca>Honor</nomeMarca>
+    <dispositivo>Honor 20</dispositivo>
+    <sistemaOperativo>Android 9.0, up to Android 10, Magic UI 4.0</sistemaOperativo>
+    <anoLancamento>2019</anoLancamento>
+    <unidades>14</unidades>
+    <precoUnitario>1231.03</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-012</codigoProduto>
+    <nomeMarca>Sharp</nomeMarca>
+    <dispositivo>Sharp 936SH</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2009</anoLancamento>
+    <unidades>7</unidades>
+    <precoUnitario>1718.16</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-013</codigoProduto>
+    <nomeMarca>BLU</nomeMarca>
+    <dispositivo>BLU Hero II</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2013</anoLancamento>
+    <unidades>5</unidades>
+    <precoUnitario>968.91</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-014</codigoProduto>
+    <nomeMarca>Lava</nomeMarca>
+    <dispositivo>Lava 3G 412</dispositivo>
+    <sistemaOperativo>Android 4.2.2</sistemaOperativo>
+    <anoLancamento>2014</anoLancamento>
+    <unidades>16</unidades>
+    <precoUnitario>110.36</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-015</codigoProduto>
+    <nomeMarca>OnePlus</nomeMarca>
+    <dispositivo>OnePlus 8 5G UW (Verizon)</dispositivo>
+    <sistemaOperativo>Android 10, OxygenOS 10.0</sistemaOperativo>
+    <anoLancamento>2020</anoLancamento>
+    <unidades>14</unidades>
+    <precoUnitario>930.44</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-016</codigoProduto>
+    <nomeMarca>Huawei</nomeMarca>
+    <dispositivo>Huawei G9 Plus</dispositivo>
+    <sistemaOperativo>Android 6.0, EMUI 4.1</sistemaOperativo>
+    <anoLancamento>2016</anoLancamento>
+    <unidades>17</unidades>
+    <precoUnitario>603,13</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-017</codigoProduto>
+    <nomeMarca>BLU</nomeMarca>
+    <dispositivo>BLU Neo</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2012</anoLancamento>
+    <unidades>0</unidades>
+    <precoUnitario>448.94</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Esgotado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-018</codigoProduto>
+    <nomeMarca>Haier</nomeMarca>
+    <dispositivo>Haier V1000</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2004</anoLancamento>
+    <unidades>6</unidades>
+    <precoUnitario>1472.88</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Descontinuado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-019</codigoProduto>
+    <nomeMarca>Google</nomeMarca>
+    <dispositivo>Google Pixel XL</dispositivo>
+    <sistemaOperativo>Android 7.1, up to Android 10</sistemaOperativo>
+    <anoLancamento>2016</anoLancamento>
+    <unidades>5</unidades>
+    <precoUnitario>811.02</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-020</codigoProduto>
+    <nomeMarca>Motorola</nomeMarca>
+    <dispositivo>Motorola Moto E</dispositivo>
+    <sistemaOperativo>Android 4.4.2, up to 5.1</sistemaOperativo>
+    <anoLancamento>2014</anoLancamento>
+    <unidades>1</unidades>
+    <precoUnitario>62.93</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-021</codigoProduto>
+    <nomeMarca>alcatel</nomeMarca>
+    <dispositivo>alcatel Evolve</dispositivo>
+    <sistemaOperativo>Android 4.1</sistemaOperativo>
+    <anoLancamento>2013</anoLancamento>
+    <unidades>17</unidades>
+    <precoUnitario>1614.26</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-022</codigoProduto>
+    <nomeMarca>Haier</nomeMarca>
+    <dispositivo>Haier A66</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2010</anoLancamento>
+    <unidades>3</unidades>
+    <precoUnitario>76.77</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-023</codigoProduto>
+    <nomeMarca>Samsung</nomeMarca>
+    <dispositivo>Samsung W880 AMOLED 12M</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2009</anoLancamento>
+    <unidades>7</unidades>
+    <precoUnitario>601.6</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-024</codigoProduto>
+    <nomeMarca>Lenovo</nomeMarca>
+    <dispositivo>Lenovo S720</dispositivo>
+    <sistemaOperativo>Android 4.0.4</sistemaOperativo>
+    <anoLancamento>2013</anoLancamento>
+    <unidades>14</unidades>
+    <precoUnitario>1995.95</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-025</codigoProduto>
+    <nomeMarca>Apple</nomeMarca>
+    <dispositivo>Apple Watch Sport 42mm (1st gen)</dispositivo>
+    <sistemaOperativo>watchOS 1.0, up to 4.3.2</sistemaOperativo>
+    <anoLancamento>2015</anoLancamento>
+    <unidades>19</unidades>
+    <precoUnitario>947.58</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-026</codigoProduto>
+    <nomeMarca>Haier</nomeMarca>
+    <dispositivo>Haier M150</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2010</anoLancamento>
+    <unidades>12</unidades>
+    <precoUnitario>1451,29</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-027</codigoProduto>
+    <nomeMarca>Toshiba</nomeMarca>
+    <dispositivo>Toshiba TX80</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2006</anoLancamento>
+    <unidades>11</unidades>
+    <precoUnitario>1691.09</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-028</codigoProduto>
+    <nomeMarca>Lava</nomeMarca>
+    <dispositivo>Lava A89</dispositivo>
+    <sistemaOperativo>Android 5.1</sistemaOperativo>
+    <anoLancamento>2016</anoLancamento>
+    <unidades>0</unidades>
+    <precoUnitario>1060.37</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Esgotado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-029</codigoProduto>
+    <nomeMarca>BLU</nomeMarca>
+    <dispositivo>BLU Studio G LTE</dispositivo>
+    <sistemaOperativo>Android 5.1</sistemaOperativo>
+    <anoLancamento>2015</anoLancamento>
+    <unidades>1</unidades>
+    <precoUnitario>1803.87</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-030</codigoProduto>
+    <nomeMarca>Oppo</nomeMarca>
+    <dispositivo>Oppo F17 Pro</dispositivo>
+    <sistemaOperativo>Android 10, ColorOS 7.2</sistemaOperativo>
+    <anoLancamento>2020</anoLancamento>
+    <unidades>11</unidades>
+    <precoUnitario>28.22</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-031</codigoProduto>
+    <nomeMarca>vivo</nomeMarca>
+    <dispositivo>vivo X3S</dispositivo>
+    <sistemaOperativo>Android 4.2.2</sistemaOperativo>
+    <anoLancamento>2014</anoLancamento>
+    <unidades>19</unidades>
+    <precoUnitario>1772.52</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-032</codigoProduto>
+    <nomeMarca>Tecno</nomeMarca>
+    <dispositivo>Tecno Camon 15</dispositivo>
+    <sistemaOperativo>Android 10, HIOS 6.0</sistemaOperativo>
+    <anoLancamento>2020</anoLancamento>
+    <unidades>14</unidades>
+    <precoUnitario>326.27</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-033</codigoProduto>
+    <nomeMarca>Lenovo</nomeMarca>
+    <dispositivo>Lenovo Vibe K5</dispositivo>
+    <sistemaOperativo>Android 5.1</sistemaOperativo>
+    <anoLancamento>2016</anoLancamento>
+    <unidades>0</unidades>
+    <precoUnitario>1830.92</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Esgotado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-034</codigoProduto>
+    <nomeMarca>LG</nomeMarca>
+    <dispositivo>LG GB250</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2009</anoLancamento>
+    <unidades>19</unidades>
+    <precoUnitario>1231.64</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-035</codigoProduto>
+    <nomeMarca>Panasonic</nomeMarca>
+    <dispositivo>Panasonic X70</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2003</anoLancamento>
+    <unidades>1</unidades>
+    <precoUnitario>1531.97</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Descontinuado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-036</codigoProduto>
+    <nomeMarca>Samsung</nomeMarca>
+    <dispositivo>Samsung R720 Admire</dispositivo>
+    <sistemaOperativo>Android 2.3.3</sistemaOperativo>
+    <anoLancamento>2011</anoLancamento>
+    <unidades>9</unidades>
+    <precoUnitario>907.3</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-037</codigoProduto>
+    <nomeMarca>Vodafone</nomeMarca>
+    <dispositivo>Vodafone Smart Tab II 7</dispositivo>
+    <sistemaOperativo>Android 4.0.4</sistemaOperativo>
+    <anoLancamento>2012</anoLancamento>
+    <unidades>14</unidades>
+    <precoUnitario>1650.65</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-038</codigoProduto>
+    <nomeMarca>alcatel</nomeMarca>
+    <dispositivo>alcatel OT 355</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2004</anoLancamento>
+    <unidades>2</unidades>
+    <precoUnitario>-313.53</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Descontinuado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-039</codigoProduto>
+    <nomeMarca>ALLVIEW</nomeMarca>
+    <dispositivo>Allview P6 Lite</dispositivo>
+    <sistemaOperativo>Android 5.1</sistemaOperativo>
+    <anoLancamento>2016</anoLancamento>
+    <unidades>6</unidades>
+    <precoUnitario>599,90</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-040</codigoProduto>
+    <nomeMarca>lg</nomeMarca>
+    <dispositivo>LG W31 Plus</dispositivo>
+    <sistemaOperativo>Android 10</sistemaOperativo>
+    <anoLancamento>2020</anoLancamento>
+    <unidades>3</unidades>
+    <precoUnitario>149.99</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-041</codigoProduto>
+    <nomeMarca>HONOR</nomeMarca>
+    <dispositivo>V6</dispositivo>
+    <sistemaOperativo>Android 10, Magic UI 3.1</sistemaOperativo>
+    <anoLancamento>2020</anoLancamento>
+    <unidades>9</unidades>
+    <precoUnitario>1850.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-042</codigoProduto>
+    <nomeMarca>Nokia</nomeMarca>
+    <dispositivo>Nokia 4.2 </dispositivo>
+    <sistemaOperativo>Android 9.0, up to Android 11, Android One</sistemaOperativo>
+    <anoLancamento>2019</anoLancamento>
+    <unidades>7</unidades>
+    <precoUnitario>449.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-043</codigoProduto>
+    <nomeMarca>SAMSUNG</nomeMarca>
+    <dispositivo>Samsung C3520</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2011</anoLancamento>
+    <unidades>0</unidades>
+    <precoUnitario>1399.90</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Esgotado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-044</codigoProduto>
+    <nomeMarca>Sony</nomeMarca>
+    <dispositivo>Sony Xperia E1 Dual</dispositivo>
+    <sistemaOperativo>Android 4.3, up to 4.4.2, Timescape UI</sistemaOperativo>
+    <anoLancamento>2014</anoLancamento>
+    <unidades>5</unidades>
+    <precoUnitario>649.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-045</codigoProduto>
+    <nomeMarca>ASUS</nomeMarca>
+    <dispositivo>ROG Phone 3 Strix</dispositivo>
+    <sistemaOperativo>Android 10, ROG UI</sistemaOperativo>
+    <anoLancamento>2020</anoLancamento>
+    <unidades>2</unidades>
+    <precoUnitario>915.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-046</codigoProduto>
+    <nomeMarca>htc</nomeMarca>
+    <dispositivo>HTC Desire XC</dispositivo>
+    <sistemaOperativo>Android 4.0</sistemaOperativo>
+    <anoLancamento>2013</anoLancamento>
+    <unidades>8</unidades>
+    <precoUnitario>1049.50</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-047</codigoProduto>
+    <nomeMarca>Realme</nomeMarca>
+    <dispositivo>Realme U1</dispositivo>
+    <sistemaOperativo>Android 8.1, up to Android 9.0, ColorOS 6</sistemaOperativo>
+    <anoLancamento>2018</anoLancamento>
+    <unidades>10</unidades>
+    <precoUnitario>1899.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-048</codigoProduto>
+    <nomeMarca>BLU</nomeMarca>
+    <dispositivo>BLU Life X8</dispositivo>
+    <sistemaOperativo>Android 4.4.2, up to 5.0</sistemaOperativo>
+    <anoLancamento>2015</anoLancamento>
+    <unidades>0</unidades>
+    <precoUnitario>180.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Esgotado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-049</codigoProduto>
+    <nomeMarca>MOTOROLA</nomeMarca>
+    <dispositivo>Motorola W231</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2008</anoLancamento>
+    <unidades>11</unidades>
+    <precoUnitario>989,00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-050</codigoProduto>
+    <nomeMarca>Samsung</nomeMarca>
+    <dispositivo>Samsung X540</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2006</anoLancamento>
+    <unidades>3</unidades>
+    <precoUnitario>685.80</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-051</codigoProduto>
+    <nomeMarca>Haier</nomeMarca>
+    <dispositivo>Haier A66</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2010</anoLancamento>
+    <unidades>3</unidades>
+    <precoUnitario>76.77</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-052</codigoProduto>
+    <nomeMarca>Tecno</nomeMarca>
+    <dispositivo></dispositivo>
+    <sistemaOperativo>Android 10, HIOS 6.0</sistemaOperativo>
+    <anoLancamento>2020</anoLancamento>
+    <unidades>8</unidades>
+    <precoUnitario>310.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-053</codigoProduto>
+    <nomeMarca>Lava</nomeMarca>
+    <dispositivo>Lava Z61</dispositivo>
+    <sistemaOperativo>Android 8.1</sistemaOperativo>
+    <anoLancamento>2018</anoLancamento>
+    <unidades>12</unidades>
+    <precoUnitario>99.90</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Pendente</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-054</codigoProduto>
+    <nomeMarca>Nokia</nomeMarca>
+    <dispositivo>Nokia 2720 Flip</dispositivo>
+    <sistemaOperativo>Feature phone</sistemaOperativo>
+    <anoLancamento>2009</anoLancamento>
+    <unidades>6</unidades>
+    <precoUnitario>79.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Esgotado</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-055</codigoProduto>
+    <nomeMarca>Maxwest</nomeMarca>
+    <dispositivo>Maxwest Tab Phone 72 DC</dispositivo>
+    <sistemaOperativo>Android 4.1.2</sistemaOperativo>
+    <anoLancamento>2013</anoLancamento>
+    <unidades>4</unidades>
+    <precoUnitario>700.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+  <produto>
+    <codigoProduto>LB-056</codigoProduto>
+    <nomeMarca>Posh</nomeMarca>
+    <dispositivo>Posh Titan Max HD E 600</dispositivo>
+    <sistemaOperativo>Android 4.4.2</sistemaOperativo>
+    <anoLancamento>2015</anoLancamento>
+    <unidades>5</unidades>
+    <precoUnitario>500.00</precoUnitario>
+    <moeda>USD</moeda>
+    <estado>Disponivel</estado>
+  </produto>
+</produtos>

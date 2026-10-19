@@ -1,1 +1,268 @@
-# Trabalho Prático 1
+# Pipeline ETL de Reconciliação de Catálogos de Smartphones
+
+> Trabalho Prático I de **Integração de Sistemas de Informação** (ISI), 2026/27
+> Licenciatura em Engenharia de Sistemas Informáticos, Escola Superior de Tecnologia, IPCA
+
+![Pentaho Kettle](https://img.shields.io/badge/ETL-Pentaho%20Kettle-blue)
+![MySQL](https://img.shields.io/badge/DB-MySQL%208.0-orange)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED)
+![Node-RED](https://img.shields.io/badge/Dashboard-Node--RED-red)
+
+Pipeline ETL que integra os catálogos de duas lojas de telemóveis, **TeleCompra** (CSV) e **AmeriMobile** (XML), com especificações técnicas vindas de uma **API REST** e com a taxa de câmbio de uma **API externa**. Valida, limpa e reconcilia os dados, carrega-os em **MySQL**, gera exportações anonimizadas em vários formatos e notifica por e-mail.
+
+## Índice
+
+- [Problema](#problema)
+- [Arquitetura](#arquitetura)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
+- [Estrutura do repositório](#estrutura-do-repositório)
+- [Como executar](#como-executar)
+- [Pipeline em detalhe](#pipeline-em-detalhe)
+- [Resultados gerados](#resultados-gerados)
+- [Trabalho futuro](#trabalho-futuro)
+- [Documentação e demonstração](#documentação-e-demonstração)
+- [Autor](#autor)
+
+## Problema
+
+Um retalhista recebe o stock de duas lojas parceiras, cada uma com um formato e uma qualidade de dados diferentes:
+
+| Origem | Formato | Conteúdo | Problemas típicos |
+|---|---|---|---|
+| TeleCompra (Loja A) | CSV | id, marca, modelo, quantidade | nulos, quantidades negativas, nomes inconsistentes, duplicados |
+| AmeriMobile (Loja B) | XML | código, marca, dispositivo, sistema operativo, ano, unidades, preço, moeda, estado | preço com vírgula decimal, preços em USD, anos inválidos, duplicados |
+| API de especificações | JSON (REST) | marca, modelo, RAM, armazenamento, bateria | registos incompletos, repetidos |
+| API Frankfurter | JSON (REST) | taxa USD para EUR | serviço externo que pode falhar |
+
+O objetivo é produzir **um catálogo único e fiável**, com preços em EUR e especificações técnicas, e dar visibilidade sobre os registos inválidos.
+
+## Arquitetura
+
+```mermaid
+flowchart LR
+    subgraph E["Extração"]
+        A[loja_a.csv]
+        B[loja_b.xml]
+        C[API especificações]
+        D[API câmbio]
+    end
+    subgraph T["Transformação (Kettle)"]
+        T1[Validar, limpar<br/>normalizar, Regex]
+        T2[Reconciliar<br/>Merge Join]
+    end
+    subgraph L["Carga e saídas"]
+        M[(MySQL)]
+        F[CSV / JSON / YAML / SQL]
+        N[Node-RED Dashboard]
+        S[E-mail]
+    end
+    A --> T1
+    B --> T1
+    C --> T1
+    D --> T2
+    T1 --> T2 --> M
+    M --> F
+    F --> N
+    T2 --> S
+```
+
+Entre transformações usam-se ficheiros XML de *staging* (`stg_*.xml`), que desacoplam cada passo e permitem inspecionar os dados intermédios.
+
+### Fluxo do job
+
+```mermaid
+flowchart TD
+    START --> L0[0 Limpar erros antigos]
+    L0 --> J1[1 API especificações]
+    J1 --> J2[2 Câmbio USD-EUR]
+    J2 --> J3[3 Loja A]
+    J3 --> J4[4 Loja B]
+    J4 --> J4b{4b Verificar erros}
+    J4b -- sem erros --> J5[5 Reconciliar e carregar BD]
+    J4b -- com erros --> EM[Email erros dados]
+    EM --> J5
+    J5 --> J6[6 Agregações e exportações]
+    J6 --> OK[Email sucesso]
+    J1 -. falha .-> ER[Email erro]
+    J2 -. falha .-> ER
+    J3 -. falha .-> ER
+    J4 -. falha .-> ER
+    J5 -. falha .-> ER
+    J6 -. falha .-> ER
+    ER --> AB[Abortar job]
+```
+
+## Funcionalidades
+
+- **Fontes e formatos diversos:** CSV, XML e JSON (APIs REST), mais MySQL como origem das exportações.
+- **Limpeza e validação:** deteção de nulos e valores negativos, remoção de duplicados e validação com **expressões regulares**.
+- **Normalização:** marca e modelo em maiúsculas, sem a marca repetida e sem parênteses nem espaços, com `+` convertido em `PLUS`.
+- **Reconciliação:** *Merge Join* (full outer) por chave `MARCA|MODELO`, classificando cada produto como `Exata`, `So TeleCompra` ou `So AmeriMobile`.
+- **Conversão de moeda:** USD para EUR com taxa obtida em tempo de execução e valor de reserva (`0.90`) se a API falhar.
+- **Enriquecimento:** *left join* com as especificações técnicas.
+- **Agregações:** por marca e por loja, em base de dados e em CSV.
+- **Anonimização:** hash **MD5** dos identificadores e remoção dos IDs reais.
+- **Exportações:** CSV, JSON, YAML e SQL.
+- **Tratamento de erros sem paragem:** registos inválidos vão para ficheiros de erros, consolidados num CSV e enviados por e-mail, enquanto o pipeline continua com os dados válidos.
+- **Notificações:** e-mail de sucesso (com anexos), de registos inválidos e de falha.
+- **Logs:** um ficheiro de log por transformação, com data e hora.
+- **Dashboard:** Node-RED sobre os ficheiros gerados.
+
+## Tecnologias
+
+| Tecnologia | Papel |
+|---|---|
+| Pentaho Data Integration (Kettle) | Transformações `.ktr` e job `.kjb` |
+| MySQL 8.0 | Base de dados de destino (`bd_lojab`) |
+| API REST local | Especificações técnicas dos modelos |
+| API Frankfurter | Taxa de câmbio USD para EUR |
+| Mailpit | Servidor SMTP de teste |
+| Node-RED | Dashboard |
+| Docker Compose | Orquestração dos serviços |
+
+## Estrutura do repositório
+
+```text
+.
+├── Job_Principal.kjb                    # job de orquestração
+├── Transformacao_API.ktr                # especificações (REST, JSON)
+├── Transformacao_API_Cambio.ktr         # taxa de câmbio (REST, JSON)
+├── Transformacao_LojaA.ktr              # TeleCompra (CSV)
+├── Transformacao_LojaB.ktr              # AmeriMobile (XML)
+├── Transformacao_Verificar_Erros.ktr    # consolidação de erros
+├── Transformacao_Reconciliar.ktr        # reconciliação e carga em MySQL
+├── Transformacao_Saidas.ktr             # agregações e exportações
+├── docker-compose.yml
+├── api/                                 # API REST de especificações
+├── data/                                # origens (loja_a.csv, loja_b.xml)
+├── docker/
+│   ├── db-init/                         # scripts de arranque do MySQL
+│   ├── kettle/                          # imagem do Kettle
+│   └── nodered/                         # imagem e flows do Node-RED
+├── output/                              # staging e exportações (gerado)
+│   └── erros/                           # registos inválidos (gerado)
+└── logs/                                # logs das execuções (gerado)
+```
+
+## Como executar
+
+### Pré-requisitos
+
+- [Docker](https://docs.docker.com/get-docker/) com Docker Compose
+
+### 1. Configurar variáveis
+
+Cria um ficheiro `.env` na raiz:
+
+```env
+DB_ROOT_PASSWORD=uma_password_segura
+EMAIL_DESTINO=o.teu.email@exemplo.pt
+```
+
+> `EMAIL_DESTINO` é opcional e por defeito é `aluno@teste.local`. Com o Mailpit, os e-mails não saem da máquina.
+
+### 2. Arrancar os serviços de suporte
+
+```bash
+docker compose up -d db api mailpit nodered
+```
+
+### 3. Executar o pipeline
+
+```bash
+docker compose run --rm kettle
+```
+
+O serviço `kettle` só arranca depois de a base de dados estar saudável e a API iniciada.
+
+### 4. Ver os resultados
+
+| O quê | Onde |
+|---|---|
+| E-mails (sucesso, erros) | http://localhost:8025 |
+| Dashboard | http://localhost:1880/ui |
+| API de especificações | http://localhost:8000/api/especificacoes |
+| MySQL | `localhost:3307`, base `bd_lojab`, utilizador `root` |
+| Ficheiros gerados | pasta `output/` |
+| Logs | pasta `logs/` |
+
+### Portas utilizadas
+
+| Serviço | Porta |
+|---|---|
+| MySQL | 3307 |
+| API | 8000 |
+| Mailpit (web / SMTP) | 8025 / 1025 |
+| Node-RED | 1880 |
+
+## Pipeline em detalhe
+
+| # | Transformação | O que faz |
+|---|---|---|
+| 1 | `Transformacao_API` | Consome a API de especificações, valida, normaliza (Regex), remove duplicados e gera `stg_especificacoes.xml` |
+| 2 | `Transformacao_API_Cambio` | Obtém a taxa USD para EUR e guarda-a na variável `TAXA_USD_EUR` |
+| 3 | `Transformacao_LojaA` | Lê o CSV, valida em duas fases (regras de negócio e Regex), soma duplicados e gera `stg_loja_a.xml` |
+| 4 | `Transformacao_LojaB` | Lê o XML, corrige o formato do preço, valida, normaliza, agrega e gera `stg_loja_b.xml` |
+| 4b | `Transformacao_Verificar_Erros` | Consolida os erros das três origens em `erros_consolidados.csv` |
+| 5 | `Transformacao_Reconciliar` | Une as lojas, converte preços, junta especificações e carrega `tb_produtos` |
+| 6 | `Transformacao_Saidas` | Gera agregações, anonimiza (MD5) e exporta CSV, JSON, YAML e SQL |
+
+### Expressões regulares
+
+| Expressão | Objetivo |
+|---|---|
+| `\+` → `PLUS` | Converter `+` em texto |
+| `\s*\(.*?\)` → vazio | Remover informação entre parênteses |
+| `\s+` → vazio | Remover espaços |
+| `^[a-zA-Z0-9\s\.\-\+]+$` | Validar o formato do modelo |
+
+### Tabelas na base de dados
+
+| Tabela | Conteúdo |
+|---|---|
+| `tb_produtos` | Catálogo reconciliado (stock, preços USD e EUR, especificações) |
+| `tb_agg_marca` | Modelos, unidades e preço médio por marca |
+| `tb_agg_loja` | Modelos, unidades e preço médio por loja |
+
+## Resultados gerados
+
+| Ficheiro | Descrição |
+|---|---|
+| `output/stg_*.xml` | Dados intermédios de cada origem |
+| `output/export_produtos_anonimizado.{csv,json,yaml,sql}` | Catálogo anonimizado |
+| `output/agg_marca.csv`, `output/agg_loja.csv` | Agregações |
+| `output/resumo_execucao.csv` | Taxa usada, totais, com e sem especificações |
+| `output/erros/erros_consolidados.csv` | Registos inválidos com origem, referência e motivo |
+
+<!-- Substitui pelos teus screenshots (por exemplo em docs/img/) -->
+<!--
+![Job principal](docs/img/job_principal.png)
+![Dashboard](docs/img/dashboard.png)
+![E-mail](docs/img/email.png)
+-->
+
+## Trabalho futuro
+
+- [ ] Integração de dados em streaming via **MQTT** (Mosquitto + Node-RED)
+- [ ] Carga incremental em vez de truncar as tabelas em cada execução
+- [ ] Agendamento periódico do job
+- [ ] Exportação em Apache Parquet e envio por SFTP
+- [ ] Gestão segura de credenciais (variáveis de ambiente ou segredos)
+- [ ] Testes automáticos de qualidade de dados
+
+## Segurança
+
+Não coloques credenciais reais no repositório. O `Job_Principal.kjb` contém a configuração dos passos de e-mail: antes de publicar, passa o servidor SMTP, o utilizador e a palavra-passe para os parâmetros do job (`SMTP_SERVER`, `EMAIL_USER`, `EMAIL_PASSWORD`) e usa palavras-passe de aplicação.
+
+## Documentação e demonstração
+
+- 📄 **Relatório:** [`docs/Relatorio_Trabalho_Pratico_I.docx`](docs/Relatorio_Trabalho_Pratico_I.docx)
+- 🎥 **Vídeo de demonstração:** _[colocar aqui o link]_
+
+## Autor
+
+**Diogo Silva** (a31504)
+Licenciatura em Engenharia de Sistemas Informáticos, IPCA
+Unidade curricular: Integração de Sistemas de Informação, 2026/27
+Docentes: Luís Ferreira e Óscar Ribeiro

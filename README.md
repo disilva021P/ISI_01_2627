@@ -140,6 +140,9 @@ flowchart TD
 ├── docker/
 │   ├── db-init/                         # scripts de arranque do MySQL
 │   ├── kettle/                          # imagem do Kettle
+│   │   ├── Dockerfile
+│   │   ├── entrypoint.sh
+│   │   └── pdi/                         # Pentaho Data Integration (NÃO incluído, ver Pré-requisitos)
 │   └── nodered/                         # imagem e flows do Node-RED
 ├── output/                              # staging e exportações (gerado)
 │   └── erros/                           # registos inválidos (gerado)
@@ -151,6 +154,22 @@ flowchart TD
 ### Pré-requisitos
 
 - [Docker](https://docs.docker.com/get-docker/) com Docker Compose
+- **Pentaho Data Integration (PDI) 10.2**, descompactado em `docker/kettle/pdi/` (ver abaixo)
+
+#### Instalar o PDI (passo único)
+
+O PDI não vem no repositório (pesa cerca de 1 a 2 GB). A imagem do Kettle copia-o para dentro do contentor (`COPY pdi /opt/pdi`), por isso tem de existir antes do *build*:
+
+1. Descarregar o **Pentaho Data Integration 10.2** (*Community Edition*, ficheiro `pdi-ce-10.2.x.zip`) a partir do [Hitachi Vantara / SourceForge](https://pentaho.com/pentaho-developer-edition/).
+2. Descompactar de modo a que o `kitchen.sh` fique em `docker/kettle/pdi/kitchen.sh` (a pasta `pdi/` deve conter diretamente `kitchen.sh`, `spoon.sh`, `lib/`, `plugins/`, etc., e não uma subpasta `data-integration/`).
+3. O conector MySQL já vem incluído no PDI. Se a tua versão não o trouxer, copia o `mysql-connector-j-*.jar` para `docker/kettle/pdi/lib/`.
+
+Verificação rápida:
+
+```bash
+ls docker/kettle/pdi/kitchen.sh      # Linux/macOS
+dir docker\kettle\pdi\kitchen.sh    # Windows (PowerShell/CMD)
+```
 
 ### 1. Configurar variáveis
 
@@ -166,15 +185,34 @@ EMAIL_DESTINO=destino@exemplo.pt
 EMAIL_PASSWORD=palavra_passe_de_aplicacao
 ```
 
+> `DB_ROOT_PASSWORD` só é aplicada quando o volume da base de dados é criado. Se a alterares depois, tens de recriar o volume com `docker compose down -v`, senão o Kettle não consegue ligar-se (`Access denied`).
+>
 > `EMAIL_PASSWORD` deve ser uma **palavra-passe de aplicação** do Google (nunca a palavra-passe da conta). Estas variáveis chegam ao Kettle como parâmetros do job, por isso não ficam escritas nos `.ktr`/`.kjb`.
 
-### 2. Arrancar os serviços de suporte
+### 2. Construir as imagens (build)
 
 ```bash
-docker compose up -d db api mosquitto nodered
+docker compose build
 ```
 
-### 3. Executar o pipeline
+Constrói as imagens da API, do Node-RED e do Kettle (esta última copia o PDI de `docker/kettle/pdi/`). Como o serviço `kettle` tem o perfil `job`, usa o perfil para o incluir:
+
+```bash
+docker compose --profile job build
+```
+
+> A primeira construção pode demorar alguns minutos (descarrega imagens e instala o *node-red-dashboard*). As seguintes usam a cache.
+
+### 3. Arrancar os serviços de suporte
+
+```bash
+docker compose up -d --build db api mosquitto nodered
+docker compose ps
+```
+
+Espera que o serviço `db` mostre `healthy` antes de avançar (na primeira vez demora 20 a 40 segundos, porque o MySQL corre os scripts de `docker/db-init`).
+
+### 4. Executar o pipeline
 
 ```bash
 docker compose run --rm kettle
@@ -182,7 +220,15 @@ docker compose run --rm kettle
 
 O serviço `kettle` só arranca depois de a base de dados estar saudável e a API iniciada.
 
-### 4. Ver os resultados
+> No log aparece um `ERROR` do passo `Abortar se houver erros`. É **esperado**: sinaliza que existem registos inválidos, o job envia o e-mail de erros de dados e continua com os registos válidos. O pipeline correu bem se terminar com `Kitchen - Finished!` e sem `Email erro` nem `Abortar job`.
+
+Para confirmar a carga na base de dados:
+
+```bash
+docker compose exec db mysql -uroot -p -e "SELECT COUNT(*) FROM bd_lojab.tb_produtos;"
+```
+
+### 5. Ver os resultados
 
 | O quê | Onde |
 |---|---|
@@ -192,6 +238,25 @@ O serviço `kettle` só arranca depois de a base de dados estar saudável e a AP
 | MySQL | `localhost:3307`, base `bd_lojab`, utilizador `root` |
 | Ficheiros gerados | pasta `output/` |
 | Logs | pasta `logs/` |
+
+### Parar e repor o ambiente
+
+```bash
+docker compose down        # pára os serviços (mantém os dados)
+docker compose down -v     # pára e apaga os volumes (BD e mensagens MQTT)
+```
+
+Usa `down -v` sempre que alterares `DB_ROOT_PASSWORD` ou os scripts de `docker/db-init`, porque só são aplicados quando o volume é criado.
+
+### Problemas comuns
+
+| Sintoma | Causa provável | Solução |
+|---|---|---|
+| `COPY pdi /opt/pdi: not found` no build | Falta o PDI em `docker/kettle/pdi/` | Seguir [Instalar o PDI](#instalar-o-pdi-passo-único) |
+| `Access denied for user 'root'` | `DB_ROOT_PASSWORD` alterada depois de criar o volume | `docker compose down -v` e voltar a arrancar |
+| `535 Username and Password not accepted` | `EMAIL_PASSWORD` inválida | Gerar nova palavra-passe de aplicação Google (sem espaços) |
+| `Could not connect to SMTP host` | Porta ou ligação segura incorretas | Usar `SMTP_PORT=587` com `smtp.gmail.com` |
+| Dashboard sem dados | O job ainda não correu | Executar `docker compose run --rm kettle` |
 
 ### Portas utilizadas
 
@@ -241,12 +306,7 @@ O serviço `kettle` só arranca depois de a base de dados estar saudável e a AP
 | `output/resumo_execucao.csv` | Taxa usada, totais, com e sem especificações |
 | `output/erros/erros_consolidados.csv` | Registos inválidos com origem, referência e motivo |
 
-<!-- Substitui pelos teus screenshots (por exemplo em docs/img/) -->
-<!--
-![Job principal](docs/img/job_principal.png)
-![Dashboard](docs/img/dashboard.png)
-![E-mail](docs/img/email.png)
--->
+
 
 ## Trabalho futuro
 
@@ -255,9 +315,6 @@ O serviço `kettle` só arranca depois de a base de dados estar saudável e a AP
 - [ ] Exportação em Apache Parquet e envio por SFTP
 - [ ] Testes automáticos de qualidade de dados
 
-## Segurança
-
-Os ficheiros `.ktr` e `.kjb` não contêm credenciais: a palavra-passe do MySQL (`${DB_ROOT_PASSWORD}`) e os dados SMTP (`${SMTP_SERVER}`, `${SMTP_PORT}`, `${EMAIL_USER}`, `${EMAIL_ORIGEM}`, `${EMAIL_DESTINO}`, `${EMAIL_PASSWORD}`) são parâmetros do job, passados pelo `entrypoint.sh` a partir do `.env`. Não faças commit do `.env`. Para o Gmail usa sempre uma palavra-passe de aplicação e revoga-a se for exposta.
 
 ## Documentação e demonstração
 

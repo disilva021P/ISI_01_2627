@@ -27,6 +27,11 @@
       <description>Palavra-passe de aplicação</description>
     </parameter>
     <parameter>
+  <name>DB_ROOT_PASSWORD</name>
+  <default_value></default_value>
+  <description>Password do MySQL</description>
+</parameter>
+    <parameter>
       <name>EMAIL_USER</name>
       <default_value>origem@exemplo.pt</default_value>
       <description/>
@@ -578,12 +583,12 @@
       <description/>
       <type>MAIL</type>
       <attributes/>
-      <server>smtp.gmail.com</server>
-      <port>465</port>
-      <destination>a31504@alunos.ipca.pt</destination>
+      <server>${SMTP_SERVER}</server>
+      <port>${SMTP_PORT}</port>
+      <destination>${EMAIL_DESTINO}</destination>
       <destinationCc/>
       <destinationBCc/>
-      <replyto>kultipla@gmail.com</replyto>
+      <replyto>${EMAIL_ORIGEM}</replyto>
       <replytoname>Pipeline Kettle</replytoname>
       <subject>Tratamento de Dados concluido com sucesso</subject>
       <include_date>Y</include_date>
@@ -595,8 +600,8 @@
       <zip_name/>
       <use_auth>Y</use_auth>
       <use_secure_auth>Y</use_secure_auth>
-      <auth_user>kultipla@gmail.com</auth_user>
-      <auth_password>Encrypted 686b66d0b8cba30ec4d286aa01a230d39ea9d1</auth_password>
+      <auth_user>${EMAIL_USER}</auth_user>
+      <auth_password>${EMAIL_PASSWORD}</auth_password>
       <only_comment>N</only_comment>
       <use_HTML>N</use_HTML>
       <use_Priority>N</use_Priority>
@@ -623,12 +628,12 @@
       <description/>
       <type>MAIL</type>
       <attributes/>
-      <server>smtp.gmail.com</server>
-      <port>465</port>
-      <destination>a31504@alunos.ipca.pt</destination>
+      <server>${SMTP_SERVER}</server>
+      <port>${SMTP_PORT}</port>
+      <destination>${EMAIL_DESTINO}</destination>
       <destinationCc/>
       <destinationBCc/>
-      <replyto>kultipla@gmail.com</replyto>
+      <replyto>${EMAIL_ORIGEM}</replyto>
       <replytoname>Diogo Silva- Projeto 1 ISI</replytoname>
       <subject>ERRO no pipeline Kettle</subject>
       <include_date>Y</include_date>
@@ -640,8 +645,8 @@
       <zip_name/>
       <use_auth>Y</use_auth>
       <use_secure_auth>Y</use_secure_auth>
-      <auth_user>kultipla@gmail.com</auth_user>
-      <auth_password>Encrypted 766d68d4b8c1bd1dced294bc0ebe30d997a8d9</auth_password>
+      <auth_user>${EMAIL_USER}</auth_user>
+      <auth_password>${EMAIL_PASSWORD}</auth_password>
       <only_comment>Y</only_comment>
       <use_HTML>Y</use_HTML>
       <use_Priority>N</use_Priority>
@@ -738,12 +743,12 @@
       <description/>
       <type>MAIL</type>
       <attributes/>
-      <server>smtp.gmail.com</server>
-      <port>465</port>
-      <destination>a31504@alunos.ipca.pt</destination>
+      <server>${SMTP_SERVER}</server>
+      <port>${SMTP_PORT}</port>
+      <destination>${EMAIL_DESTINO}</destination>
       <destinationCc/>
       <destinationBCc/>
-      <replyto>kultipla@gmail.com</replyto>
+      <replyto>${EMAIL_ORIGEM}</replyto>
       <replytoname>Diogo Silva- Projeto 1 ISI</replytoname>
       <subject>Registos com erro nas transformacoes</subject>
       <include_date>Y</include_date>
@@ -755,8 +760,8 @@
       <zip_name/>
       <use_auth>Y</use_auth>
       <use_secure_auth>Y</use_secure_auth>
-      <auth_user>kultipla@gmail.com</auth_user>
-      <auth_password>Encrypted 766d68d4b8c1bd1dced294bc0ebe30d997a8d9</auth_password>
+      <auth_user>${EMAIL_USER}</auth_user>
+      <auth_password>${EMAIL_PASSWORD}</auth_password>
       <only_comment>Y</only_comment>
       <use_HTML>Y</use_HTML>
       <use_Priority>N</use_Priority>

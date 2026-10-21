@@ -8,6 +8,11 @@
     <trans_type>Normal</trans_type>
     <directory>/</directory>
     <parameters>
+    <parameter>
+  <name>DB_ROOT_PASSWORD</name>
+  <default_value></default_value>
+  <description>Password do MySQL</description>
+</parameter>
     </parameters>
     <log>
       <trans-log-table>

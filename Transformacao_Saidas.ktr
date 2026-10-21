@@ -443,7 +443,7 @@
     <database>bd_lojab</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce7dc781bed6</password>
+    <password>${DB_ROOT_PASSWORD}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>

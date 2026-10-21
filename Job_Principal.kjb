@@ -335,7 +335,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>96</xloc>
+      <xloc>16</xloc>
       <yloc>192</yloc>
       <attributes_kjc/>
     </entry>
@@ -413,7 +413,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>496</xloc>
+      <xloc>448</xloc>
       <yloc>192</yloc>
       <attributes_kjc/>
     </entry>
@@ -452,7 +452,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>688</xloc>
+      <xloc>560</xloc>
       <yloc>192</yloc>
       <attributes_kjc/>
     </entry>
@@ -491,7 +491,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>896</xloc>
+      <xloc>656</xloc>
       <yloc>192</yloc>
       <attributes_kjc/>
     </entry>
@@ -530,7 +530,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1088</xloc>
+      <xloc>928</xloc>
       <yloc>192</yloc>
       <attributes_kjc/>
     </entry>
@@ -569,7 +569,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1296</xloc>
+      <xloc>1168</xloc>
       <yloc>192</yloc>
       <attributes_kjc/>
     </entry>
@@ -614,7 +614,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1488</xloc>
+      <xloc>1376</xloc>
       <yloc>192</yloc>
       <attributes_kjc/>
     </entry>
@@ -681,12 +681,18 @@
       <attributes/>
       <arg_from_previous>N</arg_from_previous>
       <include_subfolders>N</include_subfolders>
-      <fields><field><name>${Internal.Entry.Current.Directory}/output/erros</name><filemask>.*\.(xml|csv)</filemask></field></fields>
+      <fields>
+        <field>
+          <name>${Internal.Entry.Current.Directory}/output/erros</name>
+          <filemask>.*\.(xml|csv)</filemask>
+        </field>
+      </fields>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
-      <yloc>320</yloc>
+      <xloc>128</xloc>
+      <yloc>192</yloc>
+      <attributes_kjc/>
     </entry>
     <entry>
       <name>4b Verificar erros</name>
@@ -723,8 +729,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>800</xloc>
-      <yloc>320</yloc>
+      <xloc>768</xloc>
+      <yloc>192</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -760,14 +766,16 @@
       <sensitivity>normal</sensitivity>
       <secureconnectiontype>STARTTLS</secureconnectiontype>
       <replyToAddresses/>
-      <filetypes><filetype>GENERAL</filetype></filetypes>
+      <filetypes>
+        <filetype>GENERAL</filetype>
+      </filetypes>
       <embeddedimages>
       </embeddedimages>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1000</xloc>
-      <yloc>320</yloc>
+      <xloc>880</xloc>
+      <yloc>48</yloc>
       <attributes_kjc/>
     </entry>
   </entries>

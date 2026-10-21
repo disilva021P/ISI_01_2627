@@ -117,8 +117,9 @@ flowchart TD
 | MySQL 8.0 | Base de dados de destino (`bd_lojab`) |
 | API REST local | Especificações técnicas dos modelos |
 | API Frankfurter | Taxa de câmbio USD para EUR |
-| Mailpit | Servidor SMTP de teste |
+| Gmail (SMTP) | Envio das notificações por e-mail |
 | Node-RED | Dashboard |
+| Eclipse Mosquitto | Broker MQTT (publicação dos resultados) |
 | Docker Compose | Orquestração dos serviços |
 
 ## Estrutura do repositório
@@ -153,19 +154,24 @@ flowchart TD
 
 ### 1. Configurar variáveis
 
-Cria um ficheiro `.env` na raiz:
+Copia `.env.example` para `.env` (ficheiro excluído do Git) e preenche-o:
 
 ```env
 DB_ROOT_PASSWORD=uma_password_segura
-EMAIL_DESTINO=o.teu.email@exemplo.pt
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+EMAIL_USER=o.teu.email@gmail.com
+EMAIL_ORIGEM=o.teu.email@gmail.com
+EMAIL_DESTINO=destino@exemplo.pt
+EMAIL_PASSWORD=palavra_passe_de_aplicacao
 ```
 
-> `EMAIL_DESTINO` é opcional e por defeito é `aluno@teste.local`. Com o Mailpit, os e-mails não saem da máquina.
+> `EMAIL_PASSWORD` deve ser uma **palavra-passe de aplicação** do Google (nunca a palavra-passe da conta). Estas variáveis chegam ao Kettle como parâmetros do job, por isso não ficam escritas nos `.ktr`/`.kjb`.
 
 ### 2. Arrancar os serviços de suporte
 
 ```bash
-docker compose up -d db api mailpit nodered
+docker compose up -d db api mosquitto nodered
 ```
 
 ### 3. Executar o pipeline
@@ -180,7 +186,7 @@ O serviço `kettle` só arranca depois de a base de dados estar saudável e a AP
 
 | O quê | Onde |
 |---|---|
-| E-mails (sucesso, erros) | http://localhost:8025 |
+| E-mails (sucesso, erros) | Caixa de correio do destinatário (`EMAIL_DESTINO`) |
 | Dashboard | http://localhost:1880/ui |
 | API de especificações | http://localhost:8000/api/especificacoes |
 | MySQL | `localhost:3307`, base `bd_lojab`, utilizador `root` |
@@ -193,7 +199,7 @@ O serviço `kettle` só arranca depois de a base de dados estar saudável e a AP
 |---|---|
 | MySQL | 3307 |
 | API | 8000 |
-| Mailpit (web / SMTP) | 8025 / 1025 |
+| Mosquitto (MQTT) | 1883 |
 | Node-RED | 1880 |
 
 ## Pipeline em detalhe
@@ -244,25 +250,23 @@ O serviço `kettle` só arranca depois de a base de dados estar saudável e a AP
 
 ## Trabalho futuro
 
-- [ ] Integração de dados em streaming via **MQTT** (Mosquitto + Node-RED)
 - [ ] Carga incremental em vez de truncar as tabelas em cada execução
 - [ ] Agendamento periódico do job
 - [ ] Exportação em Apache Parquet e envio por SFTP
-- [ ] Gestão segura de credenciais (variáveis de ambiente ou segredos)
 - [ ] Testes automáticos de qualidade de dados
 
 ## Segurança
 
-Não coloques credenciais reais no repositório. O `Job_Principal.kjb` contém a configuração dos passos de e-mail: antes de publicar, passa o servidor SMTP, o utilizador e a palavra-passe para os parâmetros do job (`SMTP_SERVER`, `EMAIL_USER`, `EMAIL_PASSWORD`) e usa palavras-passe de aplicação.
+Os ficheiros `.ktr` e `.kjb` não contêm credenciais: a palavra-passe do MySQL (`${DB_ROOT_PASSWORD}`) e os dados SMTP (`${SMTP_SERVER}`, `${SMTP_PORT}`, `${EMAIL_USER}`, `${EMAIL_ORIGEM}`, `${EMAIL_DESTINO}`, `${EMAIL_PASSWORD}`) são parâmetros do job, passados pelo `entrypoint.sh` a partir do `.env`. Não faças commit do `.env`. Para o Gmail usa sempre uma palavra-passe de aplicação e revoga-a se for exposta.
 
 ## Documentação e demonstração
 
 - 📄 **Relatório:** [`docs/Relatorio_Trabalho_Pratico_I.docx`](docs/Relatorio_Trabalho_Pratico_I.docx)
-- 🎥 **Vídeo de demonstração:** _[colocar aqui o link]_
+- 🎥 **Vídeo** [https://alunosipca-my.sharepoint.com/:v:/g/personal/a31504_alunos_ipca_pt/IQAfVzDcEze6R6xa8LePbemIAbshRpwSCc33EiuQQDdkIoY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=80Jpt0](Vídeo)
 
 ## Autor
 
 **Diogo Silva** (a31504)
 Licenciatura em Engenharia de Sistemas Informáticos, IPCA
 Unidade curricular: Integração de Sistemas de Informação, 2026/27
-Docentes: Luís Ferreira e Óscar Ribeiro
+Docente: Óscar Ribeiro
